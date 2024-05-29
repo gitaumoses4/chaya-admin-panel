@@ -31,7 +31,7 @@ nav {
     color: hsl(var(--brand-100));
   }
 
-  .menu {
+  > .menu {
     position: fixed;
     top: 0;
     left: 0;
