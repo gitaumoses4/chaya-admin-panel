@@ -1,0 +1,19 @@
+footer {
+  background-color: hsl(var(--brand-200));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.5rem;
+  gap: 1rem;
+
+  h1 {
+    color: hsl(var(--brand-600));
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+
+  p {
+    color: hsl(var(--brand-400));
+    font-size: 1rem;
+  }
+}

@@ -4,15 +4,16 @@ import { SideMenu } from '../components/side-menu';
 import { Statistics } from '../components/statistics';
 import { MissionsTable } from '../components/missions-table';
 import { Footer } from '../components/footer';
+import './admin-panel.css';
 
-export const AdminPanel: React.FC<AdminPanelProps> = (props) => {
+export const AdminPanel = () => {
   return (
-    <div className="flex flex-col">
+    <div className="admin-panel">
       <Header />
-      <main className="flex flex-col bg-brand lg:p-10 p-4">
-        <div className="container mx-auto flex flex-col gap-10">
-          <section className="h-80 flex gap-10">
-            <div className="hidden md:block">
+      <main>
+        <div>
+          <section>
+            <div>
               <SideMenu />
             </div>
             <Statistics
@@ -35,5 +36,3 @@ export const AdminPanel: React.FC<AdminPanelProps> = (props) => {
     </div>
   );
 };
-
-export interface AdminPanelProps {}

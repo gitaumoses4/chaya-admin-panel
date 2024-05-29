@@ -1,0 +1,33 @@
+.horizontal-scroll {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  .arrow {
+    color: hsl(var(--brand-200));
+    height: 2.5rem;
+    width: 2.5rem;
+    transition: transform 0.3s;
+    cursor: pointer;
+    position: absolute;
+    top: 30%;
+
+    &:hover {
+      transform: scale(1.25);
+    }
+  }
+
+  .left-arrow {
+    left: 0;
+  }
+
+  .right-arrow {
+    right: 0;
+  }
+
+  .content {
+    overflow-x: scroll;
+    padding: 0 2.5rem;
+  }
+}

@@ -1,0 +1,55 @@
+.statistics {
+  display: flex;
+  align-items: start;
+  gap: 1.5rem;
+  max-width: 900px;
+
+  @media (min-width: 768px) {
+    gap: 2.5rem;
+  }
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    justify-content: start;
+
+    .circle {
+      display: flex;
+      height: 5rem;
+      width: 5rem;
+      border-radius: 50%;
+      background: hsl(var(--brand-100));
+      border: 0.25rem solid white;
+      align-items: center;
+      justify-content: center;
+
+      @media (min-width: 768px) {
+        height: 10rem;
+        width: 10rem;
+      }
+
+      span {
+        font-size: 30px;
+        color: hsl(var(--brand));
+        font-weight: bold;
+
+        @media (min-width: 768px) {
+          font-size: 60px;
+        }
+      }
+    }
+
+    .label {
+      color: white;
+      font-weight: bold;
+      font-size: 1rem;
+      text-align: center;
+
+      @media (min-width: 768px) {
+        font-size: 1.25rem;
+      }
+    }
+  }
+}
