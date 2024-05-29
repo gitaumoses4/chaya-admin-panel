@@ -26,10 +26,10 @@ export interface MenuItemProps {
 
 export const SideMenu: React.FC<SideMenuProps> = (props) => {
   return (
-    <div className="border-4 border-brand-200 w-48 rounded-xl bg-white">
+    <div className="sm:border-4 sm:border-brand-200 sm:w-48 min-w-60 max-w-[80%] h-full sm:h-auto sm:rounded-xl bg-white">
       <div className="flex items-center justify-between px-4 py-2 border-b border-b-brand-100">
         <h3 className="text-brand font-bold text-xl">Parent</h3>
-        <IconMenu2 className="h-6 text-brand" />
+        <IconMenu2 className="h-6 text-brand sm:block hidden" />
       </div>
       <div className="flex flex-col p-2">
         <MenuItem title="Dashboard" icon={IconLayoutDashboardFilled} />

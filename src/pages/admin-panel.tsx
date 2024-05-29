@@ -9,10 +9,12 @@ export const AdminPanel: React.FC<AdminPanelProps> = (props) => {
   return (
     <div className="flex flex-col">
       <Header />
-      <main className="flex flex-col bg-brand p-10">
+      <main className="flex flex-col bg-brand lg:p-10 p-4">
         <div className="container mx-auto flex flex-col gap-10">
           <section className="h-80 flex gap-10">
-            <SideMenu />
+            <div className="hidden md:block">
+              <SideMenu />
+            </div>
             <Statistics
               list={[
                 { value: '15M', title: 'Steps Taken' },
