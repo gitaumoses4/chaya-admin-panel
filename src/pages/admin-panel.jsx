@@ -9,7 +9,7 @@ import './admin-panel.css';
 export const AdminPanel = () => {
   return (
     <div className="admin-panel">
-      <Header />
+      <Header user mobileMenu={<SideMenu />} />
       <main>
         <div>
           <section>
