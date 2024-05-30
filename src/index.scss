@@ -52,11 +52,12 @@
 
   /* Handle */
   ::-webkit-scrollbar-thumb {
-    @apply bg-brand rounded-md;
+    background: hsl(var(--brand));
+    border-radius: 10px;
   }
 
   /* Handle on hover */
   ::-webkit-scrollbar-thumb:hover {
-    @apply bg-brand-400;
+    background: hsl(var(--brand-400));
   }
 }
