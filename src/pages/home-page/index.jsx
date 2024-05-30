@@ -10,7 +10,7 @@ import { WhySection } from './why-section';
 export const HomePage = (props) => {
   return (
     <div className={styles.homePage}>
-      <Header menu={<MainMenu />} />
+      <Header menu={<MainMenu />} sticky />
       <HeroSection />
       <HowItWorksSection />
       <CoreValuesSection />

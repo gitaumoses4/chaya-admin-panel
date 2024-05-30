@@ -1,4 +1,4 @@
-@import "../../responsive";
+@import '../../responsive';
 
 .nav {
   height: 4rem;
@@ -7,6 +7,12 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 0.5rem;
+
+  &.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
 
   .hamburger {
     display: block;
@@ -39,7 +45,6 @@
     color: hsl(var(--brand-100));
   }
 }
-
 
 .menu {
   display: none;

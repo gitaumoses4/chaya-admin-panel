@@ -4,11 +4,16 @@ import { IconMenu2, IconUserFilled } from '@tabler/icons-react';
 import { Button } from '../button';
 import { SideBar } from '../side-bar';
 import styles from './header.module.scss';
+import clsx from 'clsx';
 
 export const Header = (props) => {
   const [sidebarOpen, setSidebarOpen] = React.useState(false);
   return (
-    <nav className={styles.nav}>
+    <nav
+      className={clsx(styles.nav, {
+        [styles.sticky]: props.sticky,
+      })}
+    >
       <div className={styles.logo}>
         {props.menu && (
           <Button onClick={() => setSidebarOpen(true)} className={styles.hamburger}>
