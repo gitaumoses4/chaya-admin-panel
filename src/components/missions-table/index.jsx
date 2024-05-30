@@ -1,10 +1,9 @@
 import React, { useMemo, useState } from 'react';
 import { flexRender, getCoreRowModel, useReactTable } from '@tanstack/react-table';
-
-import { Button } from './button';
+import { Button } from '../button';
 import { IconChevronDown } from '@tabler/icons-react';
-import { missionData } from '../data';
-import './missions-table.css';
+import { missionData } from '../../data';
+import styles from './missions-table.module.scss';
 
 export const MissionsTable = (props) => {
   const [data, _setData] = useState(() => [...missionData]);
@@ -28,7 +27,7 @@ export const MissionsTable = (props) => {
           id: 'verify',
           header: 'Verify',
           cell: () => (
-            <Button className="verify-button">
+            <Button className={styles.verifyButton}>
               Verify
               <IconChevronDown />
             </Button>
@@ -51,9 +50,9 @@ export const MissionsTable = (props) => {
   const containerRef = React.useRef(null);
 
   return (
-    <div className="missions-table">
+    <div className={styles.missionsTable}>
       <h2>{props.title}</h2>
-      <div className="table-wrapper" ref={containerRef}>
+      <div className={styles.tableWrapper} ref={containerRef}>
         <table>
           <thead>
             {table.getHeaderGroups().map((headerGroup) => (

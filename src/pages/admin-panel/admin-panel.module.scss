@@ -1,0 +1,40 @@
+@import '../../responsive';
+
+.adminPanel {
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  background: hsl(var(--brand));
+  padding: 1rem;
+
+  @include tablet {
+    padding: 2.5rem;
+  }
+}
+
+.mainContent {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.section {
+  height: 20rem;
+  display: flex;
+  gap: 2.5rem;
+}
+
+.sideMenu {
+  display: none;
+
+  @include tablet {
+    display: block;
+  }
+}

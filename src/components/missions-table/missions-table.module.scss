@@ -1,0 +1,51 @@
+.missionsTable {
+  background: white;
+  border: 2px solid hsl(var(--brand-100));
+  border-radius: 1rem;
+  padding: 1rem;
+
+  h2 {
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: hsl(var(--brand));
+    padding: 0.5rem;
+  }
+}
+
+.tableWrapper {
+  height: 24rem;
+  overflow: auto;
+  position: relative;
+
+  table {
+    width: 100%;
+
+    thead {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+      background: white;
+      border-bottom: 0.5rem solid hsl(var(--brand));
+
+      th {
+        color: hsl(var(--brand-200));
+        text-align: left;
+      }
+    }
+
+    tbody {
+      td {
+        border-bottom: 1px solid hsl(var(--brand));
+        padding: 1rem 0;
+      }
+
+      .verifyButton {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        padding-top: 0.25rem;
+        padding-bottom: 0.25rem;
+      }
+    }
+  }
+}

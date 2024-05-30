@@ -1,0 +1,250 @@
+@import '../../responsive';
+
+.homePage {
+}
+
+.heroSection {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  height: 350px;
+  background-size: cover;
+
+  @include tablet {
+    height: 500px;
+  }
+}
+
+.heroSectionContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.girlHeader {
+  width: 10rem;
+  height: auto;
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+
+  @include tablet {
+    width: 15rem;
+    align-self: end;
+    position: static;
+  }
+}
+
+.boyHeader {
+  width: 10rem;
+  left: 0;
+  bottom: 0;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+
+  @media (min-width: 768px) {
+    width: 15rem;
+    align-self: end;
+    position: static;
+  }
+}
+
+.heroInfo {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem 0;
+  max-width: 500px;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+
+  @include tablet {
+    max-width: 50%;
+  }
+}
+
+.heroInfo h1 {
+  color: white;
+  text-shadow: 2px 2px black;
+}
+
+.heroInfoLogo {
+  width: 8rem;
+  height: auto;
+
+  @include tablet {
+    width: 10rem;
+  }
+}
+
+.coreValuesSection {
+  height: 200px;
+  background: hsl(var(--brand-100));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em 0;
+  gap: 1em;
+
+  @include tablet {
+    height: 300px;
+  }
+
+  @include desktop {
+    padding: 3em;
+    height: 500px;
+  }
+
+  .header {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: hsl(var(--brand));
+
+    @include tablet {
+      font-size: 2em;
+    }
+
+
+    @include desktop {
+      font-size: 3em;
+    }
+  }
+
+  .values {
+    flex: 1;
+    display: flex;
+    gap: 1em;
+    align-items: center;
+
+    @include desktop {
+      gap: 2em;
+    }
+
+    img {
+      width: 120px;
+      height: auto;
+
+      @include tablet {
+        width: 200px;
+      }
+
+      @include desktop {
+        width: 300px;
+      }
+    }
+  }
+}
+
+
+.howItWorksSection {
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+  gap: 2em;
+
+  @include tablet {
+    height: 300px;
+  }
+
+  @include desktop {
+    height: 500px;
+    gap: 3em;
+  }
+
+  h1 {
+    font-weight: bolder;
+    font-size: 1.5em;
+    color: hsl(var(--brand));
+    position: relative;
+
+    @include tablet {
+      font-size: 2em;
+    }
+
+    @include desktop {
+      font-size: 3em;
+    }
+
+    &:after {
+      content: '';
+      z-index: 10;
+      position: absolute;
+      width: 120px;
+      left: 50%;
+      bottom: -5px;
+      transform: translateX(-50%);
+      height: 2px;
+      background: hsl(var(--brand));
+    }
+  }
+
+  p {
+    text-align: center;
+    color: hsl(var(--brand));
+    font-size: 1.2em;
+    font-weight: lighter;
+    max-width: 600px;
+
+    @include tablet {
+      font-size: 1.5em;
+    }
+
+    @include desktop {
+      max-width: 900px;
+      font-size: 2.5em;
+    }
+  }
+}
+
+.whySection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+  gap: 2em;
+
+  h2 {
+    font-weight: bold;
+    font-size: 1.5em;
+    color: hsl(var(--brand));
+    position: relative;
+
+    @include tablet {
+      font-size: 2em;
+    }
+  }
+
+  .whySectionContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+    max-width: 1200px;
+    width: 100%;
+    align-items: end;
+
+    img {
+      width: 200px;
+      height: auto;
+
+      @include tablet {
+        width: 300px;
+      }
+
+      @include desktop {
+        width: 500px;
+      }
+    }
+
+    .achievement{
+      align-self: start;
+    }
+  }
+}

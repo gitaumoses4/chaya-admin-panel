@@ -1,19 +1,19 @@
 import React from 'react';
-import { Header } from '../components/header';
-import { SideMenu } from '../components/side-menu';
-import { Statistics } from '../components/statistics';
-import { MissionsTable } from '../components/missions-table';
-import { Footer } from '../components/footer';
-import './admin-panel.css';
+import { Header } from '../../components/header';
+import { SideMenu } from '../../components/side-menu';
+import { Statistics } from '../../components/statistics';
+import { MissionsTable } from '../../components/missions-table';
+import { Footer } from '../../components/footer';
+import styles from './admin-panel.module.scss';
 
 export const AdminPanel = () => {
   return (
-    <div className="admin-panel">
-      <Header user mobileMenu={<SideMenu />} />
-      <main>
-        <div>
-          <section>
-            <div>
+    <div className={styles.adminPanel}>
+      <Header mobileOnly={true} user menu={<SideMenu />} />
+      <main className={styles.main}>
+        <div className={styles.mainContent}>
+          <section className={styles.section}>
+            <div className={styles.sideMenu}>
               <SideMenu />
             </div>
             <Statistics

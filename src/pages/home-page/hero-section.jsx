@@ -2,7 +2,7 @@ import React from 'react';
 import background from '../../assets/home-page-background.png';
 import girlHeader from '../../assets/girl-header.png';
 import boyHeader from '../../assets/boy-header.png';
-import styles from './home-page.module.css';
+import styles from './home-page.module.scss';
 import superMeLogo from '../../assets/super-me-logo.png';
 import { Button } from '../../components/button';
 

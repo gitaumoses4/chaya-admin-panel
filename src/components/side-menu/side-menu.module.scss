@@ -1,0 +1,66 @@
+@import '../../responsive';
+
+.sideMenu {
+  min-width: 15rem;
+  max-width: 80%;
+  height: 100%;
+  background: white;
+
+  @include tablet {
+    max-width: 20rem;
+    height: auto;
+    border: 0.25rem solid hsl(var(--brand-200));
+    border-radius: 10px;
+  }
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid hsl(var(--brand-100));
+
+  h3 {
+    color: hsl(var(--brand));
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+
+  .menuIcon {
+    color: hsl(var(--brand-200));
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: none;
+
+    @include tablet {
+      display: block;
+    }
+  }
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem;
+
+  .item {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    cursor: pointer;
+
+    &:hover {
+      background: hsl(var(--brand-50));
+    }
+
+    .icon {
+      color: hsl(var(--brand-200));
+    }
+
+    .label {
+      font-weight: lighter;
+    }
+  }
+}

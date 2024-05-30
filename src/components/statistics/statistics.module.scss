@@ -1,10 +1,12 @@
+@import '../../responsive';
+
 .statistics {
   display: flex;
   align-items: start;
   gap: 1.5rem;
   max-width: 900px;
 
-  @media (min-width: 768px) {
+  @include tablet {
     gap: 2.5rem;
   }
 
@@ -25,7 +27,7 @@
       align-items: center;
       justify-content: center;
 
-      @media (min-width: 768px) {
+      @include tablet {
         height: 10rem;
         width: 10rem;
       }
@@ -35,7 +37,7 @@
         color: hsl(var(--brand));
         font-weight: bold;
 
-        @media (min-width: 768px) {
+        @include tablet {
           font-size: 60px;
         }
       }
@@ -47,7 +49,7 @@
       font-size: 1rem;
       text-align: center;
 
-      @media (min-width: 768px) {
+      @include tablet {
         font-size: 1.25rem;
       }
     }

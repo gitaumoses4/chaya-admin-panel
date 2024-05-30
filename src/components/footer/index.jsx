@@ -1,9 +1,9 @@
 import React from 'react';
-import './footer.css';
+import styles from './footer.module.scss';
 
 export const Footer = () => {
   return (
-    <footer>
+    <footer className={styles.footer}>
       <h1>Our Partners:</h1>
       <p>
         Thank you ------ & ------ for partnering with us on our <b>Mitzvot for Israel</b> campaign.

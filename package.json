@@ -13,12 +13,15 @@
     "@types/node": "^16.18.97",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
+    "clsx": "^2.1.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
+    "react-use-breakpoint": "^1.2.1",
     "tailwind-merge": "^2.3.0",
     "typescript": "^4.9.5",
+    "use-breakpoint": "^4.0.1",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
@@ -46,7 +49,10 @@
     ]
   },
   "devDependencies": {
+    "@types/prop-types": "^15.7.12",
     "prettier": "^3.2.5",
+    "prop-types": "^15.8.1",
+    "sass": "^1.77.3",
     "tailwindcss": "^3.4.3"
   }
 }

@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
-import './horizontal-scroll.css';
+import styles from './horizontal-scroll.module.scss';
+import clsx from 'clsx';
 
 export const HorizontalScroll = (props) => {
   const ref = React.useRef(null);
@@ -18,12 +19,12 @@ export const HorizontalScroll = (props) => {
   }, []);
 
   return (
-    <div className={'horizontal-scroll ' + props.className}>
-      <IconChevronLeft className="arrow left-arrow" onClick={scrollLeft} />
-      <div className="content no-scrollbar" ref={ref}>
+    <div className={clsx(styles.horizontalScroll, props.className)}>
+      <IconChevronLeft className={clsx(styles.arrow, styles.leftArrow)} onClick={scrollLeft} />
+      <div className={clsx(styles.content, 'no-scrollbar')} ref={ref}>
         {props.children}
       </div>
-      <IconChevronRight className="arrow right-arrow" onClick={scrollRight} />
+      <IconChevronRight className={clsx(styles.arrow, styles.rightArrow)} onClick={scrollRight} />
     </div>
   );
 };

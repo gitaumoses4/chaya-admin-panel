@@ -1,0 +1,50 @@
+@import "../../responsive";
+
+.nav {
+  height: 4rem;
+  background: hsl(var(--brand-100));
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 0.5rem;
+
+  .hamburger {
+    display: block;
+  }
+
+  @include tablet {
+    padding: 0 2rem;
+
+    .hamburger {
+      display: none;
+    }
+  }
+
+  .logo {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+
+    img {
+      height: 2.5rem;
+      width: auto;
+    }
+  }
+
+  .profile {
+    background: hsl(var(--brand));
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+    color: hsl(var(--brand-100));
+  }
+}
+
+
+.menu {
+  display: none;
+
+  @include tablet {
+    display: block;
+  }
+}

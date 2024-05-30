@@ -35,6 +35,9 @@ dependencies:
   '@types/react-dom':
     specifier: ^18.3.0
     version: 18.3.0
+  clsx:
+    specifier: ^2.1.1
+    version: 2.1.1
   react:
     specifier: ^18.3.1
     version: 18.3.1
@@ -46,21 +49,36 @@ dependencies:
     version: 6.23.1(react-dom@18.3.1)(react@18.3.1)
   react-scripts:
     specifier: 5.0.1
-    version: 5.0.1(@babel/plugin-syntax-flow@7.24.6)(@babel/plugin-transform-react-jsx@7.24.6)(eslint@8.57.0)(react@18.3.1)(typescript@4.9.5)
+    version: 5.0.1(@babel/plugin-syntax-flow@7.24.6)(@babel/plugin-transform-react-jsx@7.24.6)(eslint@8.57.0)(react@18.3.1)(sass@1.77.3)(typescript@4.9.5)
+  react-use-breakpoint:
+    specifier: ^1.2.1
+    version: 1.2.1(react@18.3.1)
   tailwind-merge:
     specifier: ^2.3.0
     version: 2.3.0
   typescript:
     specifier: ^4.9.5
     version: 4.9.5
+  use-breakpoint:
+    specifier: ^4.0.1
+    version: 4.0.1(react-dom@18.3.1)(react@18.3.1)
   web-vitals:
     specifier: ^2.1.4
     version: 2.1.4
 
 devDependencies:
+  '@types/prop-types':
+    specifier: ^15.7.12
+    version: 15.7.12
   prettier:
     specifier: ^3.2.5
     version: 3.2.5
+  prop-types:
+    specifier: ^15.8.1
+    version: 15.8.1
+  sass:
+    specifier: ^1.77.3
+    version: 1.77.3
   tailwindcss:
     specifier: ^3.4.3
     version: 3.4.3
@@ -2618,7 +2636,6 @@ packages:
 
   /@types/prop-types@15.7.12:
     resolution: {integrity: sha512-5zvhXYtRNRluoE/jAp4GVsSduVUzNWKkOZrCDBWYtE7biZywwdC2AcEzg+cSMLFRfVgeAFqpfNabiPjxFddV1Q==}
-    dev: false
 
   /@types/q@1.5.8:
     resolution: {integrity: sha512-hroOstUScF6zhIi+5+x0dzqrHA1EJi+Irri6b1fxolMTqqHIV/Cg77EtnQcZqZCu8hR3mX2BzIxN4/GzI68Kfw==}
@@ -3779,6 +3796,11 @@ packages:
       string-width: 4.2.3
       strip-ansi: 6.0.1
       wrap-ansi: 7.0.0
+    dev: false
+
+  /clsx@2.1.1:
+    resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
+    engines: {node: '>=6'}
     dev: false
 
   /co@4.6.0:
@@ -5903,6 +5925,9 @@ packages:
     resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
     dev: false
 
+  /immutable@4.3.6:
+    resolution: {integrity: sha512-Ju0+lEMyzMVZarkTn/gqRpdqd5dOPaz1mCZ0SH3JV6iFw81PldE/PEB1hWVEA288HPt4WXW8O7AWxB10M+03QQ==}
+
   /import-fresh@3.3.0:
     resolution: {integrity: sha512-veYYhQa+D1QBKznvhUHxb8faxlrwUnxseDAbAp457E0wLNio2bOSKnjYDhMj+YiAq61xrMGhQk9iXVk5FzgQMw==}
     engines: {node: '>=6'}
@@ -6846,7 +6871,6 @@ packages:
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
-    dev: false
 
   /js-yaml@3.14.1:
     resolution: {integrity: sha512-okMH7OXXJ7YrN9Ok3/SXrnu4iX9yOk+25nqX4imS2npuvTYDmo/QEZoqwZkYaIDk3jVvBOTOIEgEhaLOynBS9g==}
@@ -7125,7 +7149,6 @@ packages:
     hasBin: true
     dependencies:
       js-tokens: 4.0.0
-    dev: false
 
   /lower-case@2.0.2:
     resolution: {integrity: sha512-7fm3l3NAF9WfN6W3JOmf5drwpVqX78JtoGJ3A6W0a6ZnldM41w2fV5D490psKFTpMds8TJse/eHLFFsNHHjHgg==}
@@ -8566,7 +8589,6 @@ packages:
       loose-envify: 1.4.0
       object-assign: 4.1.1
       react-is: 16.13.1
-    dev: false
 
   /proxy-addr@2.0.7:
     resolution: {integrity: sha512-llQsMLSUDUPT44jdrU/O37qlnifitDP+ZwrmmZcoSKyLKvtZxpyV0n2/bD/N4tBAAZ/gJEdZU7KMraoK1+XYAg==}
@@ -8701,7 +8723,6 @@ packages:
 
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-    dev: false
 
   /react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
@@ -8739,7 +8760,7 @@ packages:
       react: 18.3.1
     dev: false
 
-  /react-scripts@5.0.1(@babel/plugin-syntax-flow@7.24.6)(@babel/plugin-transform-react-jsx@7.24.6)(eslint@8.57.0)(react@18.3.1)(typescript@4.9.5):
+  /react-scripts@5.0.1(@babel/plugin-syntax-flow@7.24.6)(@babel/plugin-transform-react-jsx@7.24.6)(eslint@8.57.0)(react@18.3.1)(sass@1.77.3)(typescript@4.9.5):
     resolution: {integrity: sha512-8VAmEm/ZAwQzJ+GOMLbBsTdDKOpuZh7RPs0UymvBR2vRk4iZWCskjbFnxqjrzoIvlNNRZ3QJFx6/qDSi6zSnaQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
@@ -8789,7 +8810,7 @@ packages:
       react-refresh: 0.11.0
       resolve: 1.22.8
       resolve-url-loader: 4.0.0
-      sass-loader: 12.6.0(webpack@5.91.0)
+      sass-loader: 12.6.0(sass@1.77.3)(webpack@5.91.0)
       semver: 7.6.2
       source-map-loader: 3.0.2(webpack@5.91.0)
       style-loader: 3.3.4(webpack@5.91.0)
@@ -8835,6 +8856,15 @@ packages:
       - webpack-cli
       - webpack-hot-middleware
       - webpack-plugin-serve
+    dev: false
+
+  /react-use-breakpoint@1.2.1(react@18.3.1):
+    resolution: {integrity: sha512-ddR5cuHgeSoYK6QGoFoiPZFwQeGqnMZblyxDlu1NK+fil4gQp/Tt3HBJE6qpDuO2j/a9MQiGNsQpPGEYvPDhfw==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      react: '>16'
+    dependencies:
+      react: 18.3.1
     dev: false
 
   /react@18.3.1:
@@ -9127,7 +9157,7 @@ packages:
     resolution: {integrity: sha512-ZRwKbh/eQ6w9vmTjkuG0Ioi3HBwPFce0O+v//ve+aOq1oeCy7jMV2qzzAlpsNuqpqCBjjriM1lbtZbF/Q8jVyA==}
     dev: false
 
-  /sass-loader@12.6.0(webpack@5.91.0):
+  /sass-loader@12.6.0(sass@1.77.3)(webpack@5.91.0):
     resolution: {integrity: sha512-oLTaH0YCtX4cfnJZxKSLAyglED0naiYfNG1iXfU5w1LNZ+ukoA5DtyDIN5zmKVZwYNJP4KRc5Y3hkWga+7tYfA==}
     engines: {node: '>= 12.13.0'}
     peerDependencies:
@@ -9148,8 +9178,18 @@ packages:
     dependencies:
       klona: 2.0.6
       neo-async: 2.6.2
+      sass: 1.77.3
       webpack: 5.91.0
     dev: false
+
+  /sass@1.77.3:
+    resolution: {integrity: sha512-WJHo+jmFp0dwRuymPmIovuxHaBntcCyja5hCB0yYY9wWrViEp4kF5Cdai98P72v6FzroPuABqu+ddLMbQWmwzA==}
+    engines: {node: '>=14.0.0'}
+    hasBin: true
+    dependencies:
+      chokidar: 3.6.0
+      immutable: 4.3.6
+      source-map-js: 1.2.0
 
   /sax@1.2.4:
     resolution: {integrity: sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==}
@@ -10145,6 +10185,16 @@ packages:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
+    dev: false
+
+  /use-breakpoint@4.0.1(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-Fa5Duxv3BY3bw8kmj/lmryTETXVUmBQeYJpBgPJ2yJRiIaGVG8rlMNKQE+JS2rywCZHWaggVUz+ytbr7sH/yyg==}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
+    dependencies:
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
     dev: false
 
   /util-deprecate@1.0.2:
