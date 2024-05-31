@@ -9,7 +9,7 @@ import styles from './admin-panel.module.scss';
 export const AdminPanel = () => {
   return (
     <div className={styles.adminPanel}>
-      <Header mobileOnly={true} user menu={<SideMenu />} />
+      <Header sticky mobileOnly={true} user menu={<SideMenu />} />
       <main className={styles.main}>
         <div className={styles.mainContent}>
           <section className={styles.section}>

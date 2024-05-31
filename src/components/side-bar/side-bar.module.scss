@@ -10,7 +10,7 @@
   transition: transform 0.3s ease-in-out;
   pointer-events: none;
 
-  @include tablet {
+  @include desktop {
     display: none;
   }
 }
@@ -33,4 +33,5 @@
   max-width: 70%;
   height: 100%;
   transition: transform 0.3s ease-in-out;
+  background: white;
 }

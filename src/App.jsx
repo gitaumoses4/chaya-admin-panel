@@ -2,6 +2,7 @@ import React from 'react';
 import { HomePage } from './pages/home-page';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AdminPanel } from './pages/admin-panel';
+import { UserCampaigns } from './pages/user-campaigns';
 
 const router = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: '/admin',
     element: <AdminPanel />,
+  },
+  {
+    path: '/userCampaigns',
+    element: <UserCampaigns />,
   },
 ]);
 

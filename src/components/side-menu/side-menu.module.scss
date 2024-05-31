@@ -2,11 +2,10 @@
 
 .sideMenu {
   min-width: 15rem;
-  max-width: 80%;
   height: 100%;
   background: white;
 
-  @include tablet {
+  @include desktop {
     max-width: 20rem;
     height: auto;
     border: 0.25rem solid hsl(var(--brand-200));
@@ -32,7 +31,7 @@
     cursor: pointer;
     display: none;
 
-    @include tablet {
+    @include desktop {
       display: block;
     }
   }

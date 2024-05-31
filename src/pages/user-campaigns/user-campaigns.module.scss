@@ -1,0 +1,144 @@
+@import "../../responsive";
+
+.userCampaigns {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.userCampaignsSection {
+  flex: 1;
+  background-size: cover;
+
+  @include tablet {
+    display: flex;
+    align-items: start;
+    position: relative;
+    padding-top: 4rem;
+    justify-content: center;
+    gap: 3rem;
+  }
+}
+
+
+.boy, .girl {
+  height: 20rem;
+
+  @include mobile_and_tablet {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  @include mobile {
+    height: 10rem;
+  }
+}
+
+.boy {
+  left: 0;
+}
+
+.girl {
+  right: 0;
+}
+
+.campaignsCard {
+  width: 100%;
+  max-width: 900px;
+  aspect-ratio: 1.66666666;
+  background-size: contain;
+  background-repeat: no-repeat;
+  position: relative;
+  top: 3rem;
+  display: flex;
+
+  .background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+  }
+
+  .stars {
+    width: 30%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    z-index: 1;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+
+  .campaigns {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    z-index: 2;
+
+
+    @include tablet {
+      gap: 1em;
+      width: 80%;
+      margin: auto;
+    }
+  }
+
+  .campaign {
+    background: hsl(var(--brand), 0.6);
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    border-radius: 1rem;
+    width: 50%;
+    margin: auto;
+    height: 60%;
+
+    .campaignTitle {
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      text-align: center;
+    }
+
+    .leaderboard {
+      padding: 1em 0;
+      flex: 1;
+      overflow-y: scroll;
+
+      .leaderboardItem {
+        display: flex;
+        gap: 1em;
+        align-items: center;
+        padding: 0.5em 0;
+
+        .trophy {
+          height: 1.5rem;
+          width: auto;
+        }
+
+        .noTrophy {
+          width: 1.5rem;
+          height: 1.5rem;
+          color: white;
+          background: hsl(var(--brand));
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        span {
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+.mobileCampaigns {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}

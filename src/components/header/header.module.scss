@@ -7,6 +7,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 0.5rem;
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
 
   &.sticky {
     position: sticky;
@@ -18,7 +20,7 @@
     display: block;
   }
 
-  @include tablet {
+  @include desktop {
     padding: 0 2rem;
 
     .hamburger {
@@ -49,7 +51,7 @@
 .menu {
   display: none;
 
-  @include tablet {
+  @include desktop {
     display: block;
   }
 }

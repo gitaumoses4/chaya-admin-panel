@@ -34,7 +34,7 @@
 .sideMenu {
   display: none;
 
-  @include tablet {
+  @include desktop {
     display: block;
   }
 }

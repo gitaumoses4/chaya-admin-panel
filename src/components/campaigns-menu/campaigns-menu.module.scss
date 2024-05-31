@@ -1,0 +1,33 @@
+@import "../../responsive";
+
+.campaignsMenu {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1em 4em;
+
+  @include desktop {
+    flex-direction: row;
+    gap: 2em;
+  }
+
+  .menuItem {
+    position: relative;
+    border-radius: 1em;
+    padding-left: 2em;
+    padding-right: 2em;
+
+    img {
+      position: absolute;
+      height: 120%;
+      width: auto;
+      left: 0;
+      transform: translateX(-50%);
+      top: -5px;
+    }
+
+    span {
+      text-transform: uppercase;
+    }
+  }
+}
