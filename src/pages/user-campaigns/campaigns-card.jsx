@@ -12,7 +12,11 @@ const trophies = [gold, silver, bronze];
 
 export const Trophy = (props) => {
   if (props.number <= 3) {
-    return <img src={trophies[props.number - 1]} alt="Trophy" className={styles.trophy} />;
+    return (
+      <div className={styles.trophy}>
+        <img src={trophies[props.number - 1]} alt="Trophy" />
+      </div>
+    );
   }
 
   return <div className={styles.noTrophy}>{props.number}</div>;
