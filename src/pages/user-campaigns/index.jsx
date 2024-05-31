@@ -4,8 +4,8 @@ import { Header } from '../../components/header';
 import { CampaignsMenu } from '../../components/campaigns-menu';
 import { Campaigns } from './campaigns-card';
 import background from '../../assets/campaigns-background.jpg';
-import girl from '../../assets/girl-header.png';
-import boy from '../../assets/boy-header.png';
+import girl from '../../assets/girl-full.png';
+import boy from '../../assets/boy-full.png';
 
 export const UserCampaigns = (props) => {
   return (

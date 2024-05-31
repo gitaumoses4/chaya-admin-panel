@@ -9,6 +9,7 @@
 .userCampaignsSection {
   flex: 1;
   background-size: cover;
+  width: 100%;
 
   @include tablet {
     display: flex;
@@ -16,13 +17,12 @@
     position: relative;
     padding-top: 4rem;
     justify-content: center;
-    gap: 3rem;
   }
 }
 
 
 .boy, .girl {
-  height: 20rem;
+  height: 40rem;
 
   @include mobile_and_tablet {
     position: absolute;
@@ -31,7 +31,7 @@
   }
 
   @include mobile {
-    height: 10rem;
+    height: 20rem;
   }
 }
 

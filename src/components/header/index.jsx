@@ -22,13 +22,15 @@ export const Header = (props) => {
         )}
         <img src={mainLogo} alt="Logo" />
       </div>
-      <div className={styles.menu}>{!props.mobileOnly && props.menu}</div>
-      {props.user && <IconUserFilled className={styles.profile} />}
-      {props.menu && (
-        <SideBar isOpen={sidebarOpen} setOpen={setSidebarOpen}>
-          {props.menu}
-        </SideBar>
-      )}
+      <div className={styles.rightContent}>
+        <div className={styles.menu}>{!props.mobileOnly && props.menu}</div>
+        {props.user && <IconUserFilled className={styles.profile} />}
+        {props.menu && (
+          <SideBar isOpen={sidebarOpen} setOpen={setSidebarOpen}>
+            {props.menu}
+          </SideBar>
+        )}
+      </div>
     </nav>
   );
 };
