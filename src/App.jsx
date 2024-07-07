@@ -3,6 +3,7 @@ import { HomePage } from './pages/home-page';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AdminPanel } from './pages/admin-panel';
 import { UserCampaigns } from './pages/user-campaigns';
+import { QuestPage } from './pages/quest';
 
 const router = createBrowserRouter([
   {
@@ -16,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: '/userCampaigns',
     element: <UserCampaigns />,
+  },
+  {
+    path: '/quest',
+    element: <QuestPage />,
   },
 ]);
 
