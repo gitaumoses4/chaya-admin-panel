@@ -1,21 +1,20 @@
 import React from 'react';
 import styles from './quest.module.scss';
-import boardBackground from '../../assets/quest-side-board-bg.png';
 import treasure from '../../assets/quest-treasure.png';
-import { ImageBackground } from '../../components/image-background';
 import { Button } from '../../components/button';
 import { fallingCoins } from './falling-coins';
+import clsx from 'clsx';
 
 export const SideBoard = (props) => {
   return (
-    <ImageBackground src={boardBackground} className={styles.sideBoard}>
-      <img src={treasure} alt="" style={{ position: 'absolute', bottom: 0, width: '100%', height: 'auto' }} />
+    <div className={clsx(styles.sideBoard, styles.glassBg)}>
+      <img src={treasure} className={styles.treasureImage} alt="" />
       <div className={styles.sideBoardContent}>
         {props.activeTile ? (
           <div>
             <p>{!props.activeTile.locked ? props.activeTile.unlock : props.activeTile.otherData}</p>
             <div style={{ display: 'flex', justifyContent: 'center', padding: '1em' }}>
-              {!props.activeTile.locked && props.activeTile.goal && <Button onClick={fallingCoins}>Collect</Button>}
+              {!props.activeTile.locked && props.activeTile.goal && <Button onClick={() => fallingCoins()}>Collect</Button>}
             </div>
           </div>
         ) : (
@@ -25,6 +24,6 @@ export const SideBoard = (props) => {
           </div>
         )}
       </div>
-    </ImageBackground>
+    </div>
   );
 };

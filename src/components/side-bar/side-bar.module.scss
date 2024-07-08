@@ -15,6 +15,24 @@
   }
 }
 
+
+.closeIcon {
+  color: white;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  z-index: 102;
+  width: 2rem;
+  height: 2rem;
+  cursor: pointer;
+  pointer-events: all;
+  transition: opacity 0.5s;
+
+  &:hover {
+    opacity: 0.6;
+  }
+}
+
 .backdrop {
   position: fixed;
   top: 0;

@@ -42,8 +42,7 @@ const Tile = (props) => {
 
 export const Board = (props) => {
   return (
-    <div className={styles.questBoard}>
-      <img src={boardBg} alt="" style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }} />
+    <div className={clsx(styles.questBoard, styles.glassBg)}>
       <div className={styles.tilesWrapper}>
         {tiles.map((tile) => (
           <Tile {...tile} key={tile.id} isSelected={tile.id === props.activeTile?.id} onClick={() => props.onTileClicked(tile)} />

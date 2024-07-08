@@ -1,4 +1,4 @@
-export const fallingCoins = () => {
+export const fallingCoins = (duration = 5000) => {
   const exists = document.getElementById('gimmick');
   if (exists) {
     exists.parentNode.removeChild(exists);
@@ -13,7 +13,7 @@ export const fallingCoins = () => {
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  canvas.style = { position: 'fixed', top: 0, left: 0, zIndex: 10000 };
+  canvas.style = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%';
   canvas.id = 'gimmick';
 
   const coin = new Image();
@@ -22,7 +22,13 @@ export const fallingCoins = () => {
   coin.onload = function () {
     element.appendChild(canvas);
     focused = true;
+
     drawloop();
+
+    setTimeout(() => {
+      focused = false;
+      canvas.parentNode.removeChild(canvas);
+    }, duration);
   };
   const coins = [];
 
