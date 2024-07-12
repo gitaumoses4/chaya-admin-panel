@@ -3,6 +3,7 @@
 .questPage {
   background: url('../../assets/quest-page-background.jpg');
   background-size: cover;
+  background-position: center center;
   width: 100vw;
   height: 100vh;
 }
@@ -88,6 +89,7 @@
 
 .tilesWrapper {
   display: grid;
+  z-index: 0;
   grid-template-columns: repeat(5, 1fr);
   justify-content: center;
   width: 100%;
@@ -103,15 +105,25 @@
   min-width: 40px;
   transition: all;
   perspective: 1000px;
+  z-index: 0;
   border: 3px solid transparent;
 
   &:hover {
     opacity: 0.8;
+    z-index: 100;
+
+    &:not(.unlockedTile) {
+      .tileModal {
+        opacity: 1;
+        pointer-events: all;
+      }
+    }
   }
 
 }
 
 .tileInner {
+  z-index: 0;
   position: relative;
   width: 100%;
   height: 100%;
@@ -123,16 +135,13 @@
 .tileModal {
   opacity: 0;
   pointer-events: none;
-  position: fixed;
+  position: absolute;
+  left: 50%;
+  top: 0;
   z-index: 1000;
   width: 300px;
   height: 180px;
   transition: 0.5s all;
-
-  &.shown {
-    opacity: 1;
-    pointer-events: all;
-  }
 }
 
 .lockedImage,
@@ -160,13 +169,19 @@
   }
 
   &:not(.unlockedTile) {
-    img {
+    .tileInner > img {
       filter: grayscale(100%);
     }
   }
 }
 
 .unlockedTile {
+  &.notCollected {
+    &:hover {
+      transition: 0.5s filter;
+      filter: drop-shadow( 0 0 30px #fff )
+    }
+  }
   .tileInner {
     animation: rotateUnlocked 1s;
     animation-fill-mode: forwards;
@@ -180,5 +195,25 @@
   }
   100% {
     transform: rotateY(180deg);
+  }
+}
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+@keyframes shootTop {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-100vh);
   }
 }
