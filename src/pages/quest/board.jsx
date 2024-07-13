@@ -5,8 +5,10 @@ import treeImage from '../../assets/img.png';
 import clsx from 'clsx';
 import { Button } from '../../components/button';
 import modalBg from '../../assets/tile-modal-background.png';
-import { motion, useAnimation } from 'framer-motion';
+import { useAnimation } from 'framer-motion';
 import popup from '../../assets/mission-popup.png';
+import { IconX } from '@tabler/icons-react';
+import { CollectTile } from './collect-tile';
 
 const tiles = [
   ...Array(10).fill({
@@ -33,29 +35,70 @@ const tiles = [
   .sort((a, b) => a.id - b.id);
 
 export const TileModal = (props) => {
+  const ref = React.useRef(null);
+
+  React.useLayoutEffect(() => {
+    // ensure the modal is within bounds
+
+    function updateOnSize() {
+      const rect = ref.current.getBoundingClientRect();
+
+      if (window.innerWidth > 767) {
+        if (rect.right > window.innerWidth) {
+          ref.current.style.right = `50%`;
+          ref.current.style.left = 'unset';
+          ref.current.querySelector('img').style.transform = 'scaleX(-1)';
+        }
+
+        if (rect.bottom > window.innerHeight) {
+          ref.current.style.bottom = `50%`;
+          ref.current.style.top = 'unset';
+          ref.current.querySelector('img').style.transform = 'scaleY(-1)';
+        }
+      } else {
+        ref.current.style.left = `-${rect.left}px`;
+        ref.current.style.top = `-${rect.top}px`;
+      }
+    }
+
+    window.addEventListener('resize', updateOnSize);
+
+    updateOnSize();
+
+    return () => {
+      window.removeEventListener('resize', updateOnSize);
+    };
+  }, []);
+
   return (
-    <div className={clsx(styles.tileModal)}>
-      <img src={modalBg} alt="" style={{ width: '100%', height: '100%' }} />
-      <div
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          color: 'white',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: '1em',
-        }}
-      >
-        <img src={popup} alt="" style={{ width: '100px', height: '100px', marginTop: '-50px' }} />
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <span>To uncover this square:</span>
-          <span>master 5 nutrition mission</span>
+    <div className={clsx(styles.tileModal)} ref={ref}>
+      <div className={clsx(styles.tileModalBackdrop)}></div>
+
+      <IconX className={clsx(styles.tileModalClose)} onClick={() => (ref.current.style.display = 'none')}></IconX>
+
+      <div className={clsx(styles.tileModalContent)}>
+        <img src={modalBg} alt="" style={{ width: '100%', height: '100%' }} />
+        <div
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            color: 'white',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: '1em',
+          }}
+        >
+          <img src={popup} alt="" style={{ width: '100px', height: '100px', marginTop: '-50px' }} />
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span>To uncover this square:</span>
+            <span>master 5 nutrition mission</span>
+          </div>
+          <Button style={{ background: '#f6db0f', color: 'hsl(var(--brand))' }}>Practice More</Button>
         </div>
-        <Button style={{ background: '#f6db0f', color: 'hsl(var(--brand))' }}>Practice More</Button>
       </div>
     </div>
   );
@@ -79,10 +122,7 @@ const Tile = (props) => {
   }, [props.isSelected, props.locked]);
 
   return (
-    <motion.div
-      animate={controls}
-      transition={{ repeat: Infinity, duration: 2 }}
-      exit={{ rotate: 0 }}
+    <div
       className={clsx(styles.tile, {
         [styles.selectedTile]: props.isSelected,
         [styles.unlockedTile]: !props.locked,
@@ -102,7 +142,8 @@ const Tile = (props) => {
         <img src={props.image} className={styles.unlockedImage}></img>
       </div>
       <TileModal />
-    </motion.div>
+      <CollectTile {...props} />
+    </div>
   );
 };
 
