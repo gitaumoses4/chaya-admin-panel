@@ -160,7 +160,7 @@ export const Board = (props) => {
             />
           ))}
         </div>
-        <div className={styles.mobileTileModal}>{props.activeTile && <TileModal onClose={() => props.onTileClicked(null)} />}</div>
+        <div className={styles.mobileTileModal}>{props.activeTile?.locked && <TileModal onClose={() => props.onTileClicked(null)} />}</div>
       </div>
     </>
   );

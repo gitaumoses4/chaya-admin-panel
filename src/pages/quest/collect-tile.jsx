@@ -11,7 +11,7 @@ export const ShootingStars = (props) => {
     .fill(0)
     .map(() => (
       <motion.div
-        animate={{ x: [0, Math.random() * 1000 - 500], y: [0, Math.random() * 1000 - 500], opacity: [1, 0] }}
+        animate={{ x: [0, Math.random() * 1000 - 500], y: [0, Math.random() * 1000 - 500], opacity: [1, 0], scale: [0, 2] }}
         transition={{ duration: 2, delay: Math.random() * 5, repeat: Infinity }}
         className={styles.shootingStar}
       ></motion.div>
