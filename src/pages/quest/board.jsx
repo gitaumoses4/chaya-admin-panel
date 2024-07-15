@@ -55,9 +55,6 @@ export const TileModal = (props) => {
           ref.current.style.top = 'unset';
           ref.current.querySelector('img').style.transform = 'scaleY(-1)';
         }
-      } else {
-        ref.current.style.left = `-${rect.left}px`;
-        ref.current.style.top = `-${rect.top}px`;
       }
     }
 
@@ -74,7 +71,7 @@ export const TileModal = (props) => {
     <div className={clsx(styles.tileModal)} ref={ref}>
       <div className={clsx(styles.tileModalBackdrop)}></div>
 
-      <IconX className={clsx(styles.tileModalClose)} onClick={() => (ref.current.style.display = 'none')}></IconX>
+      <IconX className={clsx(styles.tileModalClose)} onClick={props.onClose}></IconX>
 
       <div className={clsx(styles.tileModalContent)}>
         <img src={modalBg} alt="" style={{ width: '100%', height: '100%' }} />
@@ -149,19 +146,22 @@ const Tile = (props) => {
 
 export const Board = (props) => {
   return (
-    <div className={clsx(styles.questBoard, styles.glassBg)}>
-      <div className={styles.tilesWrapper}>
-        {tiles.map((tile) => (
-          <Tile
-            {...tile}
-            key={tile.id}
-            isSelected={tile.id === props.activeTile?.id}
-            onClick={(e) => {
-              props.onTileClicked(tile);
-            }}
-          />
-        ))}
+    <>
+      <div className={clsx(styles.questBoard, styles.glassBg)}>
+        <div className={styles.tilesWrapper}>
+          {tiles.map((tile) => (
+            <Tile
+              {...tile}
+              key={tile.id}
+              isSelected={tile.id === props.activeTile?.id}
+              onClick={(e) => {
+                props.onTileClicked(tile);
+              }}
+            />
+          ))}
+        </div>
+        <div className={styles.mobileTileModal}>{props.activeTile && <TileModal onClose={() => props.onTileClicked(null)} />}</div>
       </div>
-    </div>
+    </>
   );
 };
