@@ -18,6 +18,9 @@ module.exports = {
           DEFAULT: '#425ba4',
         },
       },
+      aspectRatio: {
+        game: '56.25%',
+      },
     },
   },
   plugins: [],

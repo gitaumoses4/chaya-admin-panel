@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { AdminPanel } from './pages/admin-panel';
 import { UserCampaigns } from './pages/user-campaigns';
 import { QuestPage } from './pages/quest';
+import { GamePlay } from './pages/game-play';
 
 const router = createBrowserRouter([
   {
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: '/quest',
     element: <QuestPage />,
+  },
+  {
+    path: '/game-play',
+    element: <GamePlay />,
   },
 ]);
 
