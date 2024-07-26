@@ -1,16 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { World } from './World';
-import { BLOCKS, GRAVITY, NO_BLOCK, PLAYER_HEIGHT, PLAYER_SPEED, PLAYER_WIDTH, WORLD_HEIGHT } from './constants';
+import { EMPTY_BLOCK, GRAVITY, GROUND_BLOCKS, PLAYER_HEIGHT, PLAYER_SPEED, PLAYER_WIDTH, WORLD_HEIGHT } from './constants';
 
 export const Frame = (props) => {
-  const [blocks, setBlocks] = useState({
-    ground: BLOCKS,
-  });
+  const [containers, setContainers] = useState([{ id: 'ground', blocks: GROUND_BLOCKS }]);
   const frameRef = useRef(null);
-  const [block, setBlock] = useState(blocks.ground[0]);
+  const [block, setBlock] = useState(containers[0].blocks[0]);
   const [ladder1Active, setLadder1Active] = useState(false);
 
-  const [position, setPosition] = useState({ x: block.x + PLAYER_WIDTH / 2, y: block.y });
+  const [position, setPosition] = useState({ x: block.x1 + PLAYER_WIDTH / 2, y: block.y1 });
   const [velocity, setVelocity] = useState({ dx: 0, dy: 0 });
   const [state, setState] = useState('idle');
   const [direction, setDirection] = useState('right');
@@ -18,13 +16,14 @@ export const Frame = (props) => {
   useEffect(() => {
     // check whether the player is on the block
     setBlock((block) => {
-      if (position.x < block.x || position.x > block.x + block.width || block.y > position.y) {
+      if (position.x < block.x1 || position.x > block.x2 || block.y1 > position.y) {
         let highestBlock = null;
 
-        for (let type of blocks) {
-          Object.values(blocks[type]).forEach((b) => {
-            if (b.x <= position.x && b.x + b.width >= position.x && b.y > position.y) {
-              if (!highestBlock || highestBlock.y > b.y) {
+        for (let container of containers) {
+          container.blocks.forEach((b) => {
+            console.log(container.id, b, position);
+            if (b.x1 <= position.x && b.x2 >= position.x && b.y1 >= position.y) {
+              if (!highestBlock || highestBlock.y1 > b.y1) {
                 highestBlock = b;
               }
             }
@@ -34,7 +33,7 @@ export const Frame = (props) => {
       }
       return block;
     });
-  }, [position, blocks]);
+  }, [position, containers]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -43,7 +42,7 @@ export const Frame = (props) => {
 
         newVelocity = { dx: velocity.dx, dy: velocity.dy + GRAVITY };
 
-        if (position.y + newVelocity.dy > block.y && position.x > block.x && position.x < block.x + block.width) {
+        if (position.y + newVelocity.dy > block.y1 && position.x > block.x1 && position.x < block.x2) {
           if (state === 'jump') {
             newVelocity = { dx: 0, dy: 0 };
             setState('idle');
@@ -79,7 +78,7 @@ export const Frame = (props) => {
         setVelocity((velocity) => ({ dx: velocity.dx, dy: GRAVITY }));
         setDirection('down');
         setState('jump');
-        setBlock(NO_BLOCK);
+        setBlock(EMPTY_BLOCK);
       } else if (e.key === 'ArrowLeft') {
         setVelocity((velocity) => ({ dx: -PLAYER_SPEED.run, dy: velocity.dy }));
         setState((state) => {
@@ -113,15 +112,15 @@ export const Frame = (props) => {
   }, [state]);
 
   return (
-    <div className="w-full max-w-[1200px] h-full relative overflow-hidden shadow-2xl" ref={frameRef}>
+    <div className="w-full max-w-[1400px] h-full relative overflow-hidden shadow-2xl" ref={frameRef}>
       <World
         playerPosition={position}
         playerState={state}
-        canvasWidth={Math.min(window.innerWidth, 1200)}
+        canvasWidth={Math.min(window.innerWidth, 1400)}
         playerDirection={direction}
         ladder1Active={ladder1Active}
-        addBlocks={(blocks) => setBlocks((existingBlocks) => ({ ...existingBlocks, ...blocks }))}
-        blocks={blocks}
+        addContainer={(container) => setContainers((containers) => [...containers, container])}
+        containers={containers}
       />
     </div>
   );
