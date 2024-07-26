@@ -1,35 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import player from '../../assets/player.png';
+import { PLAYER_HEIGHT, PLAYER_SPRITE_POSITIONS, PLAYER_WIDTH } from './constants';
 
-const width = 64;
-const height = 72;
-
-const positions = {
-  idle: {
-    start: { x: -96, y: -20 },
-    step: 80,
-    count: 6,
-  },
-  walk: {
-    start: { x: -96, y: -112 },
-    step: 80,
-    count: 7,
-  },
-  run: {
-    start: { x: -96, y: -209 },
-    step: 80,
-    count: 8,
-  },
-  jump: {
-    start: { x: -96, y: -298 },
-    step: 82,
-    count: 8,
-  },
-};
-
-export const Player = (props) => {
-  const [state, setState] = useState('jump');
-
+export const Player = ({ position: playerPosition, state, direction }) => {
   const [frame, setFrame] = useState(0);
 
   React.useEffect(() => {
@@ -40,7 +13,7 @@ export const Player = (props) => {
   }, []);
 
   const position = useMemo(() => {
-    const position = positions[state];
+    const position = PLAYER_SPRITE_POSITIONS[state];
     return {
       x: position.start.x - (frame % position.count) * position.step,
       y: position.start.y,
@@ -48,7 +21,16 @@ export const Player = (props) => {
   }, [frame]);
 
   return (
-    <div className="absolute top-0 left-0" style={{ width, height }}>
+    <div
+      className="absolute"
+      style={{
+        width: PLAYER_WIDTH,
+        height: PLAYER_HEIGHT,
+        top: playerPosition.y - PLAYER_HEIGHT,
+        left: playerPosition.x - PLAYER_WIDTH / 2,
+        transform: direction === 'left' ? 'rotateY(180deg)' : '',
+      }}
+    >
       <div
         className="w-full h-full"
         style={{
