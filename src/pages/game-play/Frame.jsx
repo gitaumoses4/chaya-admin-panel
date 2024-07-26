@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { World } from './World';
-import { BLOCKS, GRAVITY, PLAYER_HEIGHT, PLAYER_SPEED, PLAYER_WIDTH, WORLD_HEIGHT } from './constants';
+import { BLOCKS, GRAVITY, NO_BLOCK, PLAYER_HEIGHT, PLAYER_SPEED, PLAYER_WIDTH, WORLD_HEIGHT } from './constants';
 
 export const Frame = (props) => {
+  const [blocks, setBlocks] = useState(BLOCKS);
   const frameRef = useRef(null);
-  const [block, setBlock] = useState(BLOCKS[2]);
+  const [block, setBlock] = useState(blocks[0]);
 
   const [position, setPosition] = useState({ x: block.x + PLAYER_WIDTH / 2, y: block.y });
   const [velocity, setVelocity] = useState({ dx: 0, dy: 0 });
@@ -14,9 +15,9 @@ export const Frame = (props) => {
   useEffect(() => {
     // check whether the player is on the block
     setBlock((block) => {
-      if (position.x < block.x || position.x > block.x + block.width) {
+      if (position.x < block.x || position.x > block.x + block.width || block.y > position.y) {
         let highestBlock = null;
-        BLOCKS.forEach((b) => {
+        blocks.forEach((b) => {
           if (b.x <= position.x && b.x + b.width >= position.x && b.y > position.y) {
             if (!highestBlock || highestBlock.y > b.y) {
               highestBlock = b;
@@ -60,7 +61,7 @@ export const Frame = (props) => {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === ' ') {
+      if (e.key === ' ' || e.key === 'ArrowUp') {
         setState((state) => {
           if (state !== 'jump') {
             setVelocity((velocity) => ({ dx: velocity.dx, dy: -PLAYER_SPEED.jump }));
@@ -68,10 +69,11 @@ export const Frame = (props) => {
           return 'jump';
         });
         setDirection('up');
-      } else if (e.key === 'ArrowUp') {
-        console.log('up');
       } else if (e.key === 'ArrowDown') {
-        console.log('down');
+        setVelocity((velocity) => ({ dx: velocity.dx, dy: GRAVITY }));
+        setDirection('down');
+        setState('jump');
+        setBlock(NO_BLOCK);
       } else if (e.key === 'ArrowLeft') {
         setVelocity((velocity) => ({ dx: -PLAYER_SPEED.run, dy: velocity.dy }));
         setState((state) => {

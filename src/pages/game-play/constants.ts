@@ -35,6 +35,8 @@ export const PLAYER_SPRITE_POSITIONS = {
   },
 };
 
+export const NO_BLOCK = { x: -1, y: -1, width: 0 };
+
 export const BLOCKS = [
   { x: 0, y: 1744, width: 502 },
   { x: 0, y: 1078, width: 610 },
