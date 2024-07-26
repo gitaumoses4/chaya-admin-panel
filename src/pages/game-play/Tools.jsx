@@ -1,6 +1,8 @@
 import React from 'react';
 import { useDrag } from 'react-dnd';
 import ladder from '../../assets/ladder-icon.png';
+import rope from '../../assets/rope.png';
+import bridge from '../../assets/bridges.png';
 
 export const Tool = (props) => {
   const [collected, drag, dragPreview] = useDrag({
@@ -22,9 +24,15 @@ export const Tool = (props) => {
 
 export const Tools = (props) => {
   return (
-    <div className="absolute top-0 right-0 p-4">
+    <div className="absolute top-0 right-0 p-4 flex flex-col gap-4">
       <Tool type="ladder">
         <img src={ladder} className="w-auto h-8" />
+      </Tool>
+      <Tool type="bridge">
+        <img src={bridge} className="w-auto h-8" />
+      </Tool>
+      <Tool type="rope">
+        <img src={rope} className="w-auto h-8" />
       </Tool>
     </div>
   );

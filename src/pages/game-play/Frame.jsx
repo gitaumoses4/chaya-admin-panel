@@ -3,9 +3,12 @@ import { World } from './World';
 import { BLOCKS, GRAVITY, NO_BLOCK, PLAYER_HEIGHT, PLAYER_SPEED, PLAYER_WIDTH, WORLD_HEIGHT } from './constants';
 
 export const Frame = (props) => {
-  const [blocks, setBlocks] = useState(BLOCKS);
+  const [blocks, setBlocks] = useState({
+    ground: BLOCKS,
+  });
   const frameRef = useRef(null);
-  const [block, setBlock] = useState(blocks[0]);
+  const [block, setBlock] = useState(blocks.ground[0]);
+  const [ladder1Active, setLadder1Active] = useState(false);
 
   const [position, setPosition] = useState({ x: block.x + PLAYER_WIDTH / 2, y: block.y });
   const [velocity, setVelocity] = useState({ dx: 0, dy: 0 });
@@ -17,18 +20,21 @@ export const Frame = (props) => {
     setBlock((block) => {
       if (position.x < block.x || position.x > block.x + block.width || block.y > position.y) {
         let highestBlock = null;
-        blocks.forEach((b) => {
-          if (b.x <= position.x && b.x + b.width >= position.x && b.y > position.y) {
-            if (!highestBlock || highestBlock.y > b.y) {
-              highestBlock = b;
+
+        for (let type of blocks) {
+          Object.values(blocks[type]).forEach((b) => {
+            if (b.x <= position.x && b.x + b.width >= position.x && b.y > position.y) {
+              if (!highestBlock || highestBlock.y > b.y) {
+                highestBlock = b;
+              }
             }
-          }
-        });
+          });
+        }
         return highestBlock || block;
       }
       return block;
     });
-  }, [position]);
+  }, [position, blocks]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -108,7 +114,15 @@ export const Frame = (props) => {
 
   return (
     <div className="w-full max-w-[1200px] h-full relative overflow-hidden shadow-2xl" ref={frameRef}>
-      <World playerPosition={position} playerState={state} canvasWidth={Math.min(window.innerWidth, 1200)} playerDirection={direction} />
+      <World
+        playerPosition={position}
+        playerState={state}
+        canvasWidth={Math.min(window.innerWidth, 1200)}
+        playerDirection={direction}
+        ladder1Active={ladder1Active}
+        addBlocks={(blocks) => setBlocks((existingBlocks) => ({ ...existingBlocks, ...blocks }))}
+        blocks={blocks}
+      />
     </div>
   );
 };
