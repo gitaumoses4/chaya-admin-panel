@@ -1,53 +1,56 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useRef, useState } from 'react';
 import { World } from './World';
-import { EMPTY_BLOCK, GRAVITY, GROUND_BLOCKS, PLAYER_HEIGHT, PLAYER_SPEED, PLAYER_WIDTH, WORLD_HEIGHT } from './constants';
+import { EMPTY_TILE, GRAVITY, PLAYER_HEIGHT, PLAYER_SPEED, PLAYER_WIDTH, WORLD_HEIGHT } from './constants';
+import { GameContext } from './GameContext';
+import { checkPositionInTile } from './functions';
 
 export const Frame = (props) => {
-  const [containers, setContainers] = useState([{ id: 'ground', blocks: GROUND_BLOCKS }]);
+  const context = useContext(GameContext);
   const frameRef = useRef(null);
-  const [block, setBlock] = useState(containers[0].blocks[0]);
-  const [ladder1Active, setLadder1Active] = useState(false);
+  const [tile, setTile] = useState(null);
 
-  const [position, setPosition] = useState({ x: block.x1 + PLAYER_WIDTH / 2, y: block.y1 });
+  const [position, setPosition] = useState(null);
   const [velocity, setVelocity] = useState({ dx: 0, dy: 0 });
   const [state, setState] = useState('idle');
-  const [direction, setDirection] = useState('right');
 
   useEffect(() => {
-    // check whether the player is on the block
-    setBlock((block) => {
-      if (position.x < block.x1 || position.x > block.x2 || block.y1 > position.y) {
-        let highestBlock = null;
+    if (tile == null && context.pathObjects.ground.tiles.length) {
+      const firstTile = context.pathObjects.ground.tiles[0];
+      setPosition({ x: firstTile.x1 + PLAYER_WIDTH / 2, y: firstTile.y1 });
+      setTile(firstTile);
+    }
+  }, [context.pathObjects, tile]);
 
-        for (let container of containers) {
-          container.blocks.forEach((b) => {
-            console.log(container.id, b, position);
-            if (b.x1 <= position.x && b.x2 >= position.x && b.y1 >= position.y) {
-              if (!highestBlock || highestBlock.y1 > b.y1) {
-                highestBlock = b;
-              }
-            }
-          });
-        }
-        return highestBlock || block;
-      }
-      return block;
-    });
-  }, [position, containers]);
+  const updateVelocity = useCallback((newVelocity) => {
+    setVelocity((velocity) => ({ ...velocity, ...newVelocity }));
+  }, []);
+
+  useEffect(() => {
+    // check whether the player is on the tile
+  }, [position, context.pathObjects, velocity]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setPosition((position) => {
+        if (!position || !tile) return position;
         let newVelocity = velocity;
 
         newVelocity = { dx: velocity.dx, dy: velocity.dy + GRAVITY };
 
-        if (position.y + newVelocity.dy > block.y1 && position.x > block.x1 && position.x < block.x2) {
+        const firstPosition = checkPositionInTile(tile, { x: position.x, y: position.y });
+        const nextPosition = checkPositionInTile(tile, { x: position.x + newVelocity.dx, y: position.y + newVelocity.dy });
+
+        if (firstPosition !== 'below' && nextPosition !== 'above' && position.x >= tile.x1 && position.x <= tile.x2) {
+          // use the gradient of the tile to calculate the new dy
+          const gradient = (tile.y2 - tile.y1) / (tile.x2 - tile.x1);
+          const angle = Math.atan(gradient);
+          const newDy = Math.tan(angle) * velocity.dx;
+
+          newVelocity = { dx: velocity.dx, dy: newDy };
+
           if (state === 'jump') {
-            newVelocity = { dx: 0, dy: 0 };
             setState('idle');
-          } else {
-            newVelocity = { dx: velocity.dx, dy: 0 };
+            newVelocity = { dx: 0, dy: 0 };
           }
         }
 
@@ -55,44 +58,65 @@ export const Frame = (props) => {
           newVelocity = { dx: 0, dy: 0 };
         }
 
+        const newPosition = { x: position.x + newVelocity.dx, y: position.y + newVelocity.dy };
+
+        let highestBlock = tile;
+
+        let count = 0;
+
+        for (let container of Object.values(context.pathObjects)) {
+          container.tiles.forEach((b) => {
+            const check = checkPositionInTile(b, newPosition);
+            if (b.x2 === 469) {
+              console.log(check);
+            }
+            if (check !== 'below' && b.x1 <= newPosition.x && b.x2 >= newPosition.x) {
+              count++;
+              if (!highestBlock || highestBlock.y1 >= b.y1) {
+                highestBlock = b;
+              }
+            }
+          });
+        }
+
+        console.log(count);
+
+        if (highestBlock) {
+          setTile(highestBlock);
+        }
+
         setVelocity(newVelocity);
 
-        return { x: position.x + newVelocity.dx, y: position.y + newVelocity.dy };
+        return newPosition;
       });
     }, 1000 / 60);
 
     return () => clearInterval(interval);
-  }, [velocity, state, block]);
+  }, [velocity, state, tile, context.pathObjects]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
       if (e.key === ' ' || e.key === 'ArrowUp') {
         setState((state) => {
           if (state !== 'jump') {
-            setVelocity((velocity) => ({ dx: velocity.dx, dy: -PLAYER_SPEED.jump }));
+            updateVelocity({ dy: -PLAYER_SPEED.jump });
           }
           return 'jump';
         });
-        setDirection('up');
       } else if (e.key === 'ArrowDown') {
-        setVelocity((velocity) => ({ dx: velocity.dx, dy: GRAVITY }));
-        setDirection('down');
+        updateVelocity({ dy: GRAVITY });
         setState('jump');
-        setBlock(EMPTY_BLOCK);
+        setTile(EMPTY_TILE);
       } else if (e.key === 'ArrowLeft') {
-        setVelocity((velocity) => ({ dx: -PLAYER_SPEED.run, dy: velocity.dy }));
+        updateVelocity({ dx: -PLAYER_SPEED.run });
         setState((state) => {
           return state === 'jump' ? 'jump' : 'run';
         });
-        setDirection('left');
       } else if (e.key === 'ArrowRight') {
-        setVelocity((velocity) => {
-          return { dx: PLAYER_SPEED.run, dy: velocity.dy };
-        });
+        updateVelocity({ dx: PLAYER_SPEED.run });
         setState((state) => {
           return state === 'jump' ? 'jump' : 'run';
         });
-        setDirection('right');
       }
     };
     window.addEventListener('keydown', handleKeyDown);
@@ -117,10 +141,8 @@ export const Frame = (props) => {
         playerPosition={position}
         playerState={state}
         canvasWidth={Math.min(window.innerWidth, 1400)}
-        playerDirection={direction}
-        ladder1Active={ladder1Active}
-        addContainer={(container) => setContainers((containers) => [...containers, container])}
-        containers={containers}
+        playerVelocity={velocity}
+        initializing={tile === null}
       />
     </div>
   );

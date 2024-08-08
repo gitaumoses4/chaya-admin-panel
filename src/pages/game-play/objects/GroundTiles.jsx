@@ -1,0 +1,22 @@
+import React from 'react';
+
+export const GroundTiles = React.forwardRef((props, ref) => {
+  return (
+    <div className="absolute top-0 left-0 w-full h-full pointer-events-none" ref={ref}>
+      <svg width="4998" height="2151" viewBox="0 0 4998 2151" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 1749.5H469" stroke="#FF0000" stroke-width="4" />
+        <path d="M0 1083.5H610" stroke="#FF0000" stroke-width="4" />
+        <path d="M655.5 746H1042" stroke="#FF0000" stroke-width="4" />
+        <path d="M790 1207H1260" stroke="#FF0000" stroke-width="4" />
+        <path d="M918 1765L1513.5 1767.5" stroke="#FF0000" stroke-width="4" />
+        <path d="M1266 928.5H1905.5" stroke="#FF0000" stroke-width="4" />
+        <path d="M1697.5 1393H2448" stroke="#FF0000" stroke-width="4" />
+        <path d="M1786 1792.5H2436" stroke="#FF0000" stroke-width="4" />
+        <path d="M2339 986H2884" stroke="#FF0000" stroke-width="4" />
+        <path d="M2919.5 1572.5H4997.5" stroke="#FF0000" stroke-width="4" />
+        <path d="M3462.5 1193H3837" stroke="#FF0000" stroke-width="5" />
+        <path d="M4492 1315H4554" stroke="#FF0000" stroke-width="4" />
+      </svg>
+    </div>
+  );
+});

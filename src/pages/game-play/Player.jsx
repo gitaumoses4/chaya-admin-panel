@@ -2,7 +2,7 @@ import React, { useMemo, useState } from 'react';
 import player from '../../assets/player.png';
 import { PLAYER_HEIGHT, PLAYER_SPRITE_POSITIONS, PLAYER_WIDTH } from './constants';
 
-export const Player = ({ position: playerPosition, state, direction }) => {
+export const Player = ({ position: playerPosition, state, velocity }) => {
   const [frame, setFrame] = useState(0);
 
   React.useEffect(() => {
@@ -28,7 +28,7 @@ export const Player = ({ position: playerPosition, state, direction }) => {
         height: PLAYER_HEIGHT,
         top: playerPosition.y - PLAYER_HEIGHT,
         left: playerPosition.x - PLAYER_WIDTH / 2,
-        transform: direction === 'left' ? 'rotateY(180deg)' : '',
+        transform: velocity.dx < 0 ? 'rotateY(180deg)' : '',
       }}
     >
       <div
