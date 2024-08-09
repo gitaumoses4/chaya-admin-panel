@@ -20,7 +20,14 @@ export class Obstacle<Config extends ObstacleConfig = ObstacleConfig> extends Sp
     });
 
     getPathFromSVG(this.config.pathImageUri).then((lines) => {
-      this.blocks = lines;
+      this.blocks = lines.map((line) => {
+        return {
+          start: this.p.createVector(line.start.x, line.start.y).add(this.position.x, this.position.y),
+          end: this.p.createVector(line.end.x, line.end.y).add(this.position.x, this.position.y),
+        };
+      });
+
+      console.log(this.blocks, lines);
     });
   }
 
@@ -36,15 +43,22 @@ export class Obstacle<Config extends ObstacleConfig = ObstacleConfig> extends Sp
     }
   }
 
-  public checkCollision(sprite: Sprite<any, any>): Line | null {
+  public checkCollision(sprite: Sprite<any, any>, isCharacter: boolean): Line | null {
     for (let block of this.blocks) {
       const a = { start: sprite.position, end: sprite.position.copy().add(sprite.velocity) };
       const b = { start: a.start.copy().add(0, sprite.height), end: a.end.copy().add(0, sprite.height) };
       const c = { start: a.start.copy().add(sprite.width, 0), end: a.end.copy().add(sprite.width, 0) };
       const d = { start: a.start.copy().add(sprite.width, sprite.height), end: a.end.copy().add(sprite.width, sprite.height) };
 
-      if (linesIntersect(a, block) || linesIntersect(b, block) || linesIntersect(c, block) || linesIntersect(d, block)) {
-        return block;
+      if (isCharacter) {
+        const e = { start: a.start.copy().add(sprite.width / 2, sprite.height), end: a.end.copy().add(sprite.width / 2, sprite.height) };
+        if (linesIntersect(e, block) && sprite.velocity.y > 0) {
+          return block;
+        }
+      } else {
+        if (linesIntersect(a, block) || linesIntersect(b, block) || linesIntersect(c, block) || linesIntersect(d, block)) {
+          return block;
+        }
       }
     }
     return null;

@@ -84,6 +84,10 @@ export async function getPathFromSVG(svgUri: string): Promise<Array<Line>> {
 }
 
 export function linesIntersect(line: Line, line2: Line): boolean {
+  return findIntersection(line, line2) !== null;
+}
+
+export function findIntersection(line: Line, line2: Line) {
   const x1 = line.start.x;
   const y1 = line.start.y;
   const x2 = line.end.x;
@@ -97,11 +101,18 @@ export function linesIntersect(line: Line, line2: Line): boolean {
   const denominator = (x1 - x2) * (y3 - y4) - (y1 - y2) * (x3 - x4);
 
   if (denominator === 0) {
-    return false;
+    return null;
   }
 
   const t = ((x1 - x3) * (y3 - y4) - (y1 - y3) * (x3 - x4)) / denominator;
   const u = -((x1 - x2) * (y1 - y3) - (y1 - y2) * (x1 - x3)) / denominator;
 
-  return t >= 0 && t <= 1 && u >= 0 && u <= 1;
+  if (t >= 0 && t <= 1 && u >= 0 && u <= 1) {
+    return {
+      x: x1 + t * (x2 - x1),
+      y: y1 + t * (y2 - y1),
+    };
+  }
+
+  return null;
 }

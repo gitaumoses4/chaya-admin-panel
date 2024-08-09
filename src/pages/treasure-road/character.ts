@@ -1,7 +1,7 @@
 import { Sprite } from './sprite';
 import { CharacterConfig, CharacterState } from './game-config';
 import { GameContext } from './game-context';
-import { Line } from './utils';
+import { findIntersection, Line } from './utils';
 
 export class Character extends Sprite<CharacterConfig, CharacterState> {
   private currentBlock: Line | null = null;
@@ -24,9 +24,9 @@ export class Character extends Sprite<CharacterConfig, CharacterState> {
     };
 
     this.p.keyReleased = (e: any) => {
-      if (this.state === 'walk') {
+      if (this.state !== 'jump') {
         this.state = 'idle';
-        this.velocity.set(this.context.gravity);
+        this.velocity.set(0, 0);
       }
     };
   }
@@ -42,30 +42,39 @@ export class Character extends Sprite<CharacterConfig, CharacterState> {
   private moveRight() {
     if (this.state !== 'jump') {
       this.state = 'walk';
-      this.velocity.add(this.p.createVector(this.config.speed.walk, 0));
     }
+    this.velocity.add(this.p.createVector(this.config.speed.walk, 0));
   }
 
   private moveLeft() {
     if (this.state !== 'jump') {
       this.state = 'walk';
-      this.velocity.add(this.p.createVector(-this.config.speed.walk, 0));
     }
+    this.velocity.add(this.p.createVector(-this.config.speed.walk, 0));
   }
 
   private checkCollision() {
-    if (!this.currentBlock) {
-      for (let obstacle of this.context.obstacles) {
-        const block = obstacle.checkCollision(this);
-        if (block) {
-          this.currentBlock = block;
+    this.velocity.add(this.context.gravity);
+    for (let obstacle of this.context.obstacles) {
+      const block = obstacle.checkCollision(this, true);
+      if (block) {
+        this.currentBlock = block;
+        const intersection = findIntersection(block, {
+          start: this.position,
+          end: this.position.copy().add(this.velocity),
+        });
+
+        if (intersection) {
+          this.position.set(intersection.x, intersection.y);
+        }
+
+        if (this.state === 'jump') {
           this.state = 'idle';
-          this.velocity.mult(0);
+          this.velocity.set(0, 0);
+        } else {
+          this.velocity.set(this.velocity.x, 0);
         }
       }
-      this.velocity.add(this.context.gravity);
-    } else {
-      this.velocity.set(this.velocity.x, 0);
     }
   }
 
@@ -78,6 +87,14 @@ export class Character extends Sprite<CharacterConfig, CharacterState> {
 
   private moveAlongBlock() {
     if (this.currentBlock) {
+      const intersection = findIntersection(this.currentBlock, {
+        start: this.position,
+        end: this.position.copy().add(this.velocity),
+      });
+
+      if (intersection) {
+        this.position.set(intersection.x, intersection.y);
+      }
     }
   }
 }

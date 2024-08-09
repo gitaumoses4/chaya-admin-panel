@@ -1,6 +1,8 @@
 import gameBg from '../../assets/game_bg.png';
 import character from '../../assets/player.png';
 import groundPath from '../../assets/paths/ground-path.svg';
+import ladder1 from '../../assets/ladder-1.png';
+import ladder1Path from '../../assets/paths/ladder-1-path.svg';
 
 export interface SpriteSheetConfig {
   start: { x: number; y: number };
@@ -40,6 +42,7 @@ export type CharacterState = 'idle' | 'walk' | 'run' | 'jump' | 'climb' | 'celeb
 export interface CharacterSpeedConfig {
   walk: number;
   jump: number;
+  run: number;
 }
 
 export interface CharacterConfig extends SpriteConfig<CharacterState> {
@@ -74,7 +77,8 @@ export const GAME_CONFIG: GameConfig = {
     initialState: 'idle',
     speed: {
       walk: 5,
-      jump: 20,
+      jump: 18,
+      run: 10,
     },
     spriteSheet: {
       idle: {
@@ -109,5 +113,15 @@ export const GAME_CONFIG: GameConfig = {
       },
     },
   },
-  obstacles: [],
+  obstacles: [
+    {
+      id: 'ladder-1',
+      x: 169,
+      y: 1135,
+      width: 125,
+      height: 611,
+      pathImageUri: ladder1Path,
+      bgImageUri: ladder1,
+    },
+  ],
 };
