@@ -3,6 +3,8 @@ import character from '../../assets/player.png';
 import groundPath from '../../assets/paths/ground-path.svg';
 import ladder1 from '../../assets/ladder-1.png';
 import ladder1Path from '../../assets/paths/ladder-1-path.svg';
+import bridge1 from '../../assets/bridge-1.png';
+import bridge1Path from '../../assets/paths/bridge-1-path.svg';
 
 export interface SpriteSheetConfig {
   start: { x: number; y: number };
@@ -25,6 +27,8 @@ export interface SpriteConfig<States extends string = never> {
 export interface ObstacleConfig<States extends string = never> extends SpriteConfig<States> {
   id: string;
   pathImageUri: string;
+  isCompleted?: boolean;
+  requiredTools?: Array<string>;
 }
 
 export interface ViewportConfig {
@@ -63,6 +67,7 @@ export const GAME_CONFIG: GameConfig = {
     bgImageUri: gameBg,
     width: 5000,
     height: 2146,
+    isCompleted: true,
     viewPort: {
       width: Math.min(1400, window.innerWidth),
       height: window.innerHeight,
@@ -122,6 +127,17 @@ export const GAME_CONFIG: GameConfig = {
       height: 611,
       pathImageUri: ladder1Path,
       bgImageUri: ladder1,
+      requiredTools: ['ladder'],
+    },
+    {
+      id: 'bridge-1',
+      x: 437,
+      y: 1604,
+      width: 531,
+      height: 170,
+      pathImageUri: bridge1Path,
+      bgImageUri: bridge1,
+      requiredTools: ['bridge'],
     },
   ],
 };

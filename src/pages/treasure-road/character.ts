@@ -13,7 +13,7 @@ export class Character extends Sprite<CharacterConfig, CharacterState> {
     super.setup();
     this.velocity.add(this.context.gravity);
 
-    this.p.keyPressed = (e: any) => {
+    this.context.addKeyPressListener((e: any) => {
       if (e.key === 'ArrowRight') {
         this.moveRight();
       } else if (e.key === 'ArrowLeft') {
@@ -21,14 +21,14 @@ export class Character extends Sprite<CharacterConfig, CharacterState> {
       } else if (e.key === 'ArrowUp' || e.key === ' ') {
         this.jump();
       }
-    };
+    });
 
-    this.p.keyReleased = (e: any) => {
+    this.context.addKeyReleaseListener((e: any) => {
       if (this.state !== 'jump') {
         this.state = 'idle';
         this.velocity.set(0, 0);
       }
-    };
+    });
   }
 
   private jump() {
@@ -55,24 +55,32 @@ export class Character extends Sprite<CharacterConfig, CharacterState> {
 
   private checkCollision() {
     this.velocity.add(this.context.gravity);
+
     for (let obstacle of this.context.obstacles) {
       const block = obstacle.checkCollision(this, true);
       if (block) {
         this.currentBlock = block;
         const intersection = findIntersection(block, {
-          start: this.position,
-          end: this.position.copy().add(this.velocity),
+          start: this.position.copy().add(this.width / 2, this.height),
+          end: this.position
+            .copy()
+            .add(this.width / 2, this.height)
+            .add(this.velocity),
         });
 
         if (intersection) {
-          this.position.set(intersection.x, intersection.y);
+          this.position.set(intersection.x - this.width / 2, intersection.y - this.height);
         }
 
         if (this.state === 'jump') {
           this.state = 'idle';
           this.velocity.set(0, 0);
         } else {
-          this.velocity.set(this.velocity.x, 0);
+          const gradient = (block.end.y - block.start.y) / (block.end.x - block.start.x);
+          const angle = Math.atan(gradient);
+          const dy = Math.tan(angle) * this.velocity.x;
+
+          this.velocity.set(this.velocity.x, dy);
         }
       }
     }
@@ -80,21 +88,7 @@ export class Character extends Sprite<CharacterConfig, CharacterState> {
 
   draw() {
     this.checkCollision();
-    this.moveAlongBlock();
     super.draw();
     this.context.updateCharacterPosition(this.position);
-  }
-
-  private moveAlongBlock() {
-    if (this.currentBlock) {
-      const intersection = findIntersection(this.currentBlock, {
-        start: this.position,
-        end: this.position.copy().add(this.velocity),
-      });
-
-      if (intersection) {
-        this.position.set(intersection.x, intersection.y);
-      }
-    }
   }
 }

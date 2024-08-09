@@ -33,6 +33,12 @@ export class Sprite<Config extends SpriteConfig<State> = SpriteConfig<any>, Stat
       this.p.scale(-1, 1);
     }
 
+    this.drawImage();
+
+    this.p.pop();
+  }
+
+  public drawImage(x: number = 0, y: number = 0) {
     if (this.image) {
       if (this.config.spriteSheet && this.state) {
         const { start, step, count } = this.config.spriteSheet[this.state];
@@ -40,11 +46,10 @@ export class Sprite<Config extends SpriteConfig<State> = SpriteConfig<any>, Stat
         const sx = start.x + (Math.floor(this.p.frameCount / count) % count) * step;
         const sy = start.y;
 
-        this.p.image(this.image, 0, 0, this.width, this.height, sx, sy, this.width, this.height);
+        this.p.image(this.image, x, y, this.width, this.height, sx, sy, this.width, this.height);
       } else {
-        this.p.image(this.image, 0, 0, this.width, this.height);
+        this.p.image(this.image, x, y, this.width, this.height);
       }
     }
-    this.p.pop();
   }
 }

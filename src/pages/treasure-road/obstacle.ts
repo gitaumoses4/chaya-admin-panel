@@ -1,12 +1,12 @@
 import { ObstacleConfig } from './game-config';
 import { Sprite } from './sprite';
-import p5 from 'p5';
-import { getPathFromSVG, Line, linesIntersect } from './utils';
+import { getPathFromSVG, Line, linesIntersect, pointInRect } from './utils';
 import { GameContext } from './game-context';
 
 export class Obstacle<Config extends ObstacleConfig = ObstacleConfig> extends Sprite<Config> {
-  private pathImage: p5.Image | null = null;
   public blocks: Array<Line> = [];
+  public isCompleted = this.config.isCompleted;
+  public isHovered = false;
 
   constructor(
     protected context: GameContext,
@@ -14,11 +14,6 @@ export class Obstacle<Config extends ObstacleConfig = ObstacleConfig> extends Sp
   ) {
     super(context, config);
     this.context.addObstacle(this);
-
-    this.p.loadImage(this.config.pathImageUri, (img) => {
-      this.pathImage = img;
-    });
-
     getPathFromSVG(this.config.pathImageUri).then((lines) => {
       this.blocks = lines.map((line) => {
         return {
@@ -26,9 +21,24 @@ export class Obstacle<Config extends ObstacleConfig = ObstacleConfig> extends Sp
           end: this.p.createVector(line.end.x, line.end.y).add(this.position.x, this.position.y),
         };
       });
-
-      console.log(this.blocks, lines);
     });
+  }
+
+  setup() {
+    super.setup();
+
+    const mouseListener = (e: any) => {
+      const mousePosition = this.p.createVector(e.offsetX, e.offsetY).sub(this.context.worldOffset);
+      this.isHovered = pointInRect(mousePosition, {
+        x: this.position.x,
+        y: this.position.y,
+        width: this.width,
+        height: this.height,
+      });
+    };
+
+    this.context.addMouseMoveListener(mouseListener);
+    this.context.addMouseDragListener(mouseListener);
   }
 
   getId(): string {
@@ -36,14 +46,23 @@ export class Obstacle<Config extends ObstacleConfig = ObstacleConfig> extends Sp
   }
 
   draw() {
-    super.draw();
-
-    if (this.pathImage) {
-      this.p.image(this.pathImage, this.position.x, this.position.y, this.width, this.height);
+    this.p.push();
+    if (this.isCompleted || this.isHovered) {
+      if (this.isHovered && !this.isCompleted) {
+        this.p.tint(255, 30);
+      }
+      super.draw();
     }
+    this.p.pop();
+  }
+
+  public canAcceptTool(toolType: string): boolean {
+    return Boolean(this.config.requiredTools?.includes(toolType));
   }
 
   public checkCollision(sprite: Sprite<any, any>, isCharacter: boolean): Line | null {
+    if (!this.isCompleted) return null;
+
     for (let block of this.blocks) {
       const a = { start: sprite.position, end: sprite.position.copy().add(sprite.velocity) };
       const b = { start: a.start.copy().add(0, sprite.height), end: a.end.copy().add(0, sprite.height) };
@@ -51,8 +70,8 @@ export class Obstacle<Config extends ObstacleConfig = ObstacleConfig> extends Sp
       const d = { start: a.start.copy().add(sprite.width, sprite.height), end: a.end.copy().add(sprite.width, sprite.height) };
 
       if (isCharacter) {
-        const e = { start: a.start.copy().add(sprite.width / 2, sprite.height), end: a.end.copy().add(sprite.width / 2, sprite.height) };
-        if (linesIntersect(e, block) && sprite.velocity.y > 0) {
+        const e = { start: a.start.copy().add(sprite.width / 2, sprite.height / 2), end: a.end.copy().add(sprite.width / 2, sprite.height) };
+        if (linesIntersect(e, block)) {
           return block;
         }
       } else {

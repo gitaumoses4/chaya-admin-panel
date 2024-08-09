@@ -8,6 +8,13 @@ export interface Line {
   end: Point;
 }
 
+export interface Rect {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
+}
+
 export function svgPathToLines(svgPath: string) {
   let pathData = svgPath.match(/[A-Z][^A-Z]*/g);
   let lines: Array<Line> = [];
@@ -115,4 +122,8 @@ export function findIntersection(line: Line, line2: Line) {
   }
 
   return null;
+}
+
+export function pointInRect(point: Point, rect: Rect) {
+  return point.x >= rect.x && point.x <= rect.x + rect.width && point.y >= rect.y && point.y <= rect.y + rect.height;
 }
